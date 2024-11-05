@@ -4,17 +4,27 @@ import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.IInterface;
 import android.os.RemoteException;
 import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
+import com.clover.connector.sdk.v3.DisplayConnector;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
+import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
+import com.clover.sdk.v3.connector.IDisplayConnector;
+import com.clover.sdk.v3.connector.IDisplayConnectorListener;
+import com.clover.sdk.v3.order.DisplayLineItem;
+import com.clover.sdk.v3.order.DisplayOrder;
 import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.order.OrderConnector;
 import com.clover.sdk.v3.order.OrderV31Connector;
+import com.clover.connector.sdk.v3.DisplayV3Connector;
+import com.clover.connector.sdk.v3.DisplayIntent;
+
 
 import java.util.List;
 
@@ -23,6 +33,9 @@ public class OrderListenerService extends Service {
     private static final String TAG = "OrderListenerService";
     private OrderV31Connector mOrderConnector;
     private OrderConnector.OnOrderUpdateListener2 mOrderUpdateListener;
+    private IDisplayConnector mDisplayConnector;
+    private IDisplayConnectorListener mDisplayConnectorListener;
+    private DisplayOrder mDisplayOrder;
 
     @Override
     public void onCreate() {
@@ -62,6 +75,10 @@ public class OrderListenerService extends Service {
             @Override
             public void onLineItemsAdded(String orderId, List<String> lineItemIds) {
                 Log.d("Main Activity", "Added " +lineItemIds.size());
+                mDisplayOrder = new DisplayOrder();
+                DisplayLineItem item1 = new DisplayLineItem();
+                item1.setName("Anthony");
+                item1.setPrice("500");
             }
 
             @Override
@@ -107,6 +124,20 @@ public class OrderListenerService extends Service {
             }
         };
 
+        mDisplayConnectorListener = new IDisplayConnectorListener() {
+            @Override
+            public void onDeviceDisconnected() {
+                Log.d(TAG, "onDeviceDisconnected");
+                mDisplayConnector.showMessage("Thank you for your purchase!");
+            }
+
+            @Override
+            public void onDeviceConnected() {
+                Log.d(TAG, "onDeviceConnected");
+                mDisplayConnector.showMessage("Thank you for your purchase!");
+            }
+        };
+        mDisplayConnector = new DisplayConnector(this, CloverAccount.getAccount(this), mDisplayConnectorListener);
 
         mOrderConnector = new OrderV31Connector(this, CloverAccount.getAccount(this), null);
         mOrderConnector.connect();
@@ -115,9 +146,13 @@ public class OrderListenerService extends Service {
 
     private void handleOrderUpdate(String orderId) {
         Log.d(TAG, "Payment complete !!");
-        Intent intent = new Intent(this, AdDialogActivity.class);
+        //mDisplayConnector.showMessage("Order Completed by MS !!");
+
+        mDisplayConnector.showDisplayOrder(mDisplayOrder);
+
+        /*Intent intent = new Intent(this, AdDialogActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        startActivity(intent);*/
 
     }
 
@@ -145,6 +180,10 @@ public class OrderListenerService extends Service {
             mOrderConnector.addOnOrderChangedListener(mOrderUpdateListener);
             mOrderConnector.disconnect();
             mOrderConnector = null;
+        }
+        if(mDisplayConnector!=null){
+            mDisplayConnector.dispose();
+            mDisplayConnector=null;
         }
         Log.d(TAG, "OrderListenerService stopped.");
     }

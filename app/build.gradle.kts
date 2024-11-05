@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.material)
     // Clover SDK
     implementation("com.clover.sdk:clover-android-sdk:316")
+    implementation("com.clover.sdk:clover-android-connector-sdk:316")
     // Glide dependency
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation(libs.androidx.navigation.fragment)
