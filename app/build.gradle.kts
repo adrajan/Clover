@@ -17,26 +17,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        getByName("debug"){
-            keyAlias = "key0"
-            keyPassword = "123456"
-            storeFile = file("//Users/anthonyrajan/Startups/MediaStreet/keystore_v1")
-            storePassword = "123456"
-            enableV1Signing = true
-            enableV2Signing = true
-        }
-        create("release"){
-            keyAlias = "key0"
-            keyPassword = "123456"
-            storeFile = file("//Users/anthonyrajan/Startups/MediaStreet/keystore_v1")
-            storePassword = "123456"
-            enableV1Signing = true
-            enableV2Signing = true
-        }
-
-    }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -45,10 +25,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-        /*debug {
-            signingConfig = signingConfigs.getByName("debug")
-            isDebuggable = true
-        }*/
 
     }
     compileOptions {

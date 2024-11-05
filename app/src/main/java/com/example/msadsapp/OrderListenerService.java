@@ -4,26 +4,17 @@ import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.os.IInterface;
-import android.os.RemoteException;
 import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.clover.connector.sdk.v3.DisplayConnector;
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.BindingException;
-import com.clover.sdk.v1.ClientException;
-import com.clover.sdk.v1.ServiceConnector;
-import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v3.connector.IDisplayConnector;
 import com.clover.sdk.v3.connector.IDisplayConnectorListener;
 import com.clover.sdk.v3.order.DisplayLineItem;
 import com.clover.sdk.v3.order.DisplayOrder;
-import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.order.OrderConnector;
 import com.clover.sdk.v3.order.OrderV31Connector;
-import com.clover.connector.sdk.v3.DisplayV3Connector;
-import com.clover.connector.sdk.v3.DisplayIntent;
 
 
 import java.util.List;
