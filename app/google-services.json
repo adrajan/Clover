@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "958892036174",
+    "project_id": "msadsapp",
+    "storage_bucket": "msadsapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958892036174:android:0a8c589eae2faab05fb31f",
+        "android_client_info": {
+          "package_name": "com.example.msadsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlR75tjMODpqYHDGW8BhegO0wY47s2Hr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
