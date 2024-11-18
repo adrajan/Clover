@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.RemoteException;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.Settings;
 import android.util.Log;
 
 import com.clover.sdk.util.CloverAccount;
@@ -19,6 +21,9 @@ import com.clover.sdk.v3.order.OrderV31Connector;
 import com.clover.sdk.v3.order.OrderV31Connector.OnOrderUpdateListener;
 import com.clover.sdk.v3.order.OrderV31Connector.OnOrderUpdateListener2;
 import com.clover.sdk.v3.order.PaymentState;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
@@ -36,7 +41,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+//        FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+//        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+//                .setMinimumFetchIntervalInSeconds(10) // Fetch every 10 seconds during testing
+//                .build();
+//        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+//        mFirebaseRemoteConfig.fetchAndActivate()
+//                .addOnCompleteListener(this, task -> {
+//                    if (task.isSuccessful()) {
+//                        boolean updated = task.getResult();
+//                        String welcomeMessage = mFirebaseRemoteConfig.getString("image1");
+//                        Log.d("RemoteConfig", "Config params updated: " + welcomeMessage);
+//
+//                    } else {
+//                        Log.e("RemoteConfig", "Fetch failed");
+//                    }
+//                });
         // Create the notification channel for the foreground service
         createNotificationChannel();
 
@@ -51,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNotificationChannel() {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     "CHANNEL_ID",                       // Same ID used in the service
@@ -64,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 manager.createNotificationChannel(channel);
             }
         }
+
     }
 
 
@@ -71,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
 
     // Handle the completion of an order by launching AdActivity
     private void handleOrderCompletion(String orderId) {
