@@ -5,7 +5,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion='25'
+        tools:ignore="ExpiredTargetSdkVersion" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MSAdsApp"
         tools:targetApi="31">
+
         <activity android:name=".AdDialogActivity"
             android:exported="true">
             <intent-filter>
@@ -44,6 +48,9 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".DialogActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".PaymentProcessedActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

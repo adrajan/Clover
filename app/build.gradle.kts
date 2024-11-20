@@ -6,12 +6,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.msadsapp"
+    namespace = "com.example.msadsapp123"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.msadsapp"
+        applicationId = "com.example.msadsapp123"
         minSdk = 21
+        //noinspection ExpiredTargetSdkVersion
         targetSdk = 22
         versionCode = 1
         versionName = "1.0"
@@ -48,7 +49,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
-
+    implementation ("androidx.appcompat:appcompat:1.5.0")
     // Clover SDK
     implementation("com.clover.sdk:clover-android-sdk:316")
     implementation("com.clover.sdk:clover-android-connector-sdk:316")
